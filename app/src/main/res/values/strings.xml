@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">STORE</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Orders</string>
+    <string name="title_dashboard">My Cart</string>
     <string name="title_notifications">History</string>
+    <string name="URL">http://192.168.0.27/kstore/api/</string>
 </resources>

@@ -45,60 +45,18 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Login.this, MainActivity.class);
-                startActivity(i);
-                Login.this.finish();
 
+               // Toast.makeText(Login.this, username.getText().toString()+" "+password.getText().toString(), Toast.LENGTH_SHORT).show();
+                api_login_function(username.getText().toString(),password.getText().toString());
             }
         });
     }
-    public  boolean haveStoragePermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_GRANTED) {
-                Log.e("Permission error","You have permission");
-                String testurl = "http://localhost/prototype_project_board/prototype_board/uploads/document.pdf";
-                DownloadManager.Request request = new DownloadManager.Request(Uri.parse(testurl));
-                String title = URLUtil.guessFileName(testurl,null,null);
-                request.setTitle(title);
-                request.setDescription("download files");
-                String cookie = CookieManager.getInstance().getCookie(testurl);
-                request.addRequestHeader("cookie",cookie);
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title);
-
-                DownloadManager downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                downloadManager.enqueue(request);
-                Toast.makeText(Login.this, "Downloaded started", Toast.LENGTH_SHORT).show();
-
-                return true;
-            } else {
-
-                Log.e("Permission error","You have asked for permission");
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                return false;
-            }
-        }
-        else { //you dont need to worry about these stuff below api level 23
-            Log.e("Permission error","You already have the permission");
-            return true;
-        }
-    }
-
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        Intent i = new Intent(Login.this, MainActivity.class);
-        startActivity(i);
-        Login.this.finish();
-    }
-
 
 
 
     void api_login_function(final String input_username, final String input_password) {
-        String URL = "login.php";
+        Log.e("jr",input_password);
+        String URL =  "http://192.168.0.27/kstore/api/login.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -123,14 +81,14 @@ public class Login extends AppCompatActivity {
                     }
 
                 } catch (Exception e){
-                    Toast.makeText(Login.this, "Error connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Error connection haha", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 try{
-                    Toast.makeText(Login.this, "Error connection", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, error.toString(), Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){}
             }
