@@ -27,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.store.AppController;
 import com.example.store.R;
+import com.example.store.SessionManager;
 import com.example.store.databinding.FragmentHomeBinding;
 
 import org.json.JSONArray;
@@ -64,6 +65,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+
+
         recyclerView = view.findViewById(R.id.recyclerview_products);
         spinner_category = view.findViewById(R.id.spinner_salesman);
         category_list = new ArrayList<>();

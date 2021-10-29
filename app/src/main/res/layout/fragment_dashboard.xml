@@ -7,6 +7,14 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="STATUS"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:id="@+id/status"
+        ></TextView>
 
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,21 +25,30 @@
         card_view:cardElevation="5dp"
         card_view:cardUseCompatPadding="true"
         android:background="#FFFFFF"
-        >   <Button
+        >
+
+        <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/clear"
-        android:text="Clear Cart"
-        android:background="#626567"/>
+        android:id="@+id/btn_submit"
+        android:text="Submit Order"
+        android:background="#26A52F"/>
     </androidx.cardview.widget.CardView>
 
 
     <Button
-        android:id="@+id/order"
+        android:id="@+id/btn_clear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
 
         android:text="Clear Cart" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_cart"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
 
 </LinearLayout>

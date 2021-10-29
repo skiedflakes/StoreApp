@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +73,8 @@ public class Login extends AppCompatActivity {
                     Log.e("hahaha",status);
                     if(status.equals("1")){
                         Toast.makeText(Login.this, "Login Success", Toast.LENGTH_SHORT).show();
+
+                        session.createLoginSession(user_id);
 
                         Intent i = new Intent(Login.this, MainActivity.class);
                         startActivity(i);
