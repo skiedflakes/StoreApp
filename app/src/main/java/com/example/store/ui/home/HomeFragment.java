@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
 
     public void get_categories(){
 
-        String URL ="http://192.168.0.27/kstore/api/get_categories.php";
+        String URL =getString(R.string.URL)+"get_categories.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

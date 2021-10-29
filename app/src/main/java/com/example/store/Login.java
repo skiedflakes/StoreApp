@@ -39,7 +39,7 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        session = new SessionManager(getApplicationContext());
         final EditText username = findViewById(R.id.username);
         final EditText password = findViewById(R.id.password);
         Button login = findViewById(R.id.login_btn);
@@ -84,7 +84,7 @@ public class Login extends AppCompatActivity {
                     }
 
                 } catch (Exception e){
-                    Toast.makeText(Login.this, "Error connection haha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Error connection", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {

@@ -192,7 +192,7 @@ public class DashboardFragment extends Fragment {
 
 
     void submit_cart() {
-        String URL = "http://192.168.0.27/kstore/api/submit_cart.php";
+        String URL = getString(R.string.URL)+"submit_cart.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -204,7 +204,7 @@ public class DashboardFragment extends Fragment {
                     String user_id, status;
                     JSONObject jo = jsonArray.getJSONObject(0);
                     status = jo.getString("status");
-                    user_id = jo.getString("user_id");
+
 
                     Log.e("hahaha",status);
                     if(status.equals("1")){
@@ -216,7 +216,7 @@ public class DashboardFragment extends Fragment {
                     }
 
                 } catch (Exception e){
-                    Toast.makeText(view.getContext(),  "Error connection haha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(view.getContext(),  "Error connection", Toast.LENGTH_SHORT).show();
                 }
             }
         }, new com.android.volley.Response.ErrorListener() {
