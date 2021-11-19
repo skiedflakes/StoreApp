@@ -73,11 +73,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
-
         recyclerView = view.findViewById(R.id.recyclerview_cart);
-
-
-
         btn_submit = view.findViewById(R.id.btn_submit);
         btn_cancel = view.findViewById(R.id.btn_cancel);
         status= view.findViewById(R.id.status);
