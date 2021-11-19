@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
@@ -14,6 +14,7 @@
         android:textColor="@color/black"
         android:textAlignment="center"
         android:id="@+id/status"
+        android:textSize="20dp"
         ></TextView>
 
 
@@ -25,6 +26,7 @@
         card_view:cardElevation="5dp"
         card_view:cardUseCompatPadding="true"
         android:background="#FFFFFF"
+        android:layout_margin="10dp"
         >
 
         <Button
@@ -36,19 +38,50 @@
     </androidx.cardview.widget.CardView>
 
 
-    <Button
-        android:id="@+id/btn_clear"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        card_view:cardCornerRadius="6dp"
+        card_view:cardElevation="5dp"
+        card_view:cardUseCompatPadding="true"
+        android:background="#FFFFFF"
+        android:layout_margin="10dp"
+        >
 
-        android:text="Clear Cart" />
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#8A8687"
+            android:text="Cancel Order"
+
+            android:textColor="#FFFFFF"
+            android:visibility="gone" />
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_cart"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="25dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/total_cart"
+
+        android:textAlignment="viewEnd"/></LinearLayout>
 </LinearLayout>

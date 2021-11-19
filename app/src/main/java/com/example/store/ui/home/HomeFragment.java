@@ -1,11 +1,13 @@
 package com.example.store.ui.home;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -122,7 +124,6 @@ public class HomeFragment extends Fragment {
 
                     }
 
-
                     categoryadapter = new ArrayAdapter<String>(getContext(),
                             android.R.layout.simple_spinner_item, category_list);
                     categoryadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -174,7 +175,7 @@ public class HomeFragment extends Fragment {
     }
 
     void get_products(String category_id) {
-        String URL = "http://192.168.0.27/kstore/api/get_products.php";
+        String URL = getString(R.string.URL)+"get_products.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new com.android.volley.Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -218,8 +219,6 @@ public class HomeFragment extends Fragment {
         AppController.getInstance().addToRequestQueue(stringRequest);
         AppController.getInstance().setVolleyDuration(stringRequest);
     }
-
-
 
 
 

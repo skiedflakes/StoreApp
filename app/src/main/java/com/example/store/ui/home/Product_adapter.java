@@ -1,6 +1,7 @@
 package com.example.store.ui.home;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,7 +13,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -41,6 +44,7 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
     SessionManager session;
     String user;
 
+    int quantity = 1;
     public Product_adapter(Context context, ArrayList<Product_model> dataList){
         this.dataList = dataList;
         this.context = context;
@@ -73,8 +77,9 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
         holder.add_to_cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Test add to card", Toast.LENGTH_SHORT).show();
-                api_login_function(user,product_id,product_name);
+                showCustomDialog(product_name,product_id);
+//                Toast.makeText(context, "Test add to card", Toast.LENGTH_SHORT).show();
+//
             }
         });
     }
@@ -93,9 +98,9 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
         }
     }
 
-    void api_login_function(final String user,final String product_id,final String product_name) {
+    void add_product(final String user,final String product_id,final String product_name,int qty) {
 
-        String URL =  "http://192.168.0.27/kstore/api/add_to_cart.php";
+        String URL = context.getString(R.string.URL)+"add_to_cart.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -103,15 +108,16 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
 
-                    String user_id, status;
+                    String user_id, status,message;
                     JSONObject jo = jsonArray.getJSONObject(0);
                     status = jo.getString("status");
+                    message = jo.getString("message");
 
 
                     if(status.equals("1")){
-
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                     }else{
-
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (Exception e){
@@ -131,14 +137,80 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> hashMap = new HashMap<>();
                 hashMap.put("product_id", product_id);
-                hashMap.put("user_id", "3");
+                hashMap.put("user_id", user);
                 hashMap.put("product_name", product_name);
-
+                hashMap.put("qty", String.valueOf(qty));
                 return hashMap;
             }
         };
         AppController.getInstance().addToRequestQueue(stringRequest);
         AppController.getInstance().setVolleyDuration(stringRequest);
     }
+
+
+
+    //Function to display the custom dialog.
+    void showCustomDialog(String product_name,String product_id) {
+        quantity=1;
+        final Dialog dialog = new Dialog(context);
+        //We have added a title in the custom layout. So let's disable the default title.
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //The user will be able to cancel the dialog bu clicking anywhere outside the dialog.
+        dialog.setCancelable(true);
+        //Mention the name of the layout of your custom dialog.
+        dialog.setContentView(R.layout.quantity_dialog);
+//
+//        //Initializing the views of the dialog.
+        final TextView qty_text = dialog.findViewById(R.id.qty_text);
+        final Button minus_btn = dialog.findViewById(R.id.minus_btn);
+        final Button plus_btn = dialog.findViewById(R.id.plus_btn);
+        final Button Cancel_btn = dialog.findViewById(R.id.Cancel_btn);
+        final Button Okay_btn = dialog.findViewById(R.id.Okay_btn);
+
+        minus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(quantity==1){
+
+                }else{
+                    quantity--;
+                    Log.e("testjr", String.valueOf(quantity));
+                    qty_text.setText( String.valueOf(quantity));
+                }
+            }
+        });
+
+        plus_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                quantity++;
+                Log.e("testjr", String.valueOf(quantity));
+                qty_text.setText( String.valueOf(quantity));
+            }
+        });
+
+        Okay_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                add_product(user,product_id,product_name,quantity);
+            }
+        });
+        Cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+
+
+
+        dialog.show();
+    }
+
 
 }

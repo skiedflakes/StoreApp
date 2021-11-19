@@ -44,15 +44,6 @@
             android:background="#FFFFFF"
             android:layout_weight="1"
             />
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_delete"
-            android:text="Cancel"
-            android:textColor="#C82121"
-            android:background="#FFFFFF"
-            android:layout_weight="1"
 
-            />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

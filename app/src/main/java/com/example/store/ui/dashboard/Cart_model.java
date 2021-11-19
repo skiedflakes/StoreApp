@@ -12,12 +12,18 @@ public class Cart_model {
     private String product_name;
     @SerializedName("quantity")
     private int quantity;
+    @SerializedName("total")
+    private String total;
+    @SerializedName("price")
+    private String price;
 
-    public Cart_model(String cart_id,String product_id, String product_name, int quantity){
+    public Cart_model(String cart_id,String product_id, String product_name, int quantity,String total,String price){
         this.cart_id = cart_id;
         this.product_id = product_id;
         this.product_name = product_name;
         this.quantity = quantity;
+        this.price = price;
+        this.total = total;
     }
 
     public String getCart_id() {
@@ -34,5 +40,13 @@ public class Cart_model {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getTotal() {
+        return total;
     }
 }
