@@ -70,7 +70,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.UsersViewHol
         final int qty = dataList.get(position).getQuantity();
 
         holder.btn_users.setText(product_name+" x "+String.valueOf(qty));
-        holder.btn_price.setText(price);
+
         holder.btn_total.setText(total);
         holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +116,7 @@ public class Cart_adapter extends RecyclerView.Adapter<Cart_adapter.UsersViewHol
 
             btn_cancel= itemView.findViewById(R.id.btn_delete);
             btn_total = itemView.findViewById(R.id.btn_total);
-            btn_price= itemView.findViewById(R.id.btn_price);
+
         }
     }
 

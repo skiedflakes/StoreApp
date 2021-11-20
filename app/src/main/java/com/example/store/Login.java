@@ -48,7 +48,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                // Toast.makeText(Login.this, username.getText().toString()+" "+password.getText().toString(), Toast.LENGTH_SHORT).show();
-                api_login_function(username.getText().toString(),password.getText().toString());
+                api_login_function2(username.getText().toString(),password.getText().toString());
             }
         });
     }
@@ -105,6 +105,55 @@ public class Login extends AppCompatActivity {
         AppController.getInstance().addToRequestQueue(stringRequest);
         AppController.getInstance().setVolleyDuration(stringRequest);
     }
+    void api_login_function2(final String input_username, final String input_password) {
 
+        String URL = getString(R.string.URL) + "login.php";
+        StringRequest sr = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                    String user_id, status;
+                    JSONObject jo = jsonArray.getJSONObject(0);
+                    status = jo.getString("status");
+                    user_id = jo.getString("user_id");
+
+                    Log.e("hahaha",status);
+                    if(status.equals("1")){
+                        Toast.makeText(Login.this, "Login Success", Toast.LENGTH_SHORT).show();
+
+                        session.createLoginSession(user_id);
+
+                        Intent i = new Intent(Login.this, MainActivity.class);
+                        startActivity(i);
+                        Login.this.finish();
+                    }else{
+                        Toast.makeText(Login.this, "Account not found", Toast.LENGTH_SHORT).show();
+                    }
+
+
+                } catch (Exception e){
+                    Toast.makeText(Login.this, "Error connection", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // error
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("username", input_username);
+                params.put("password", input_password);
+                return params;
+            }
+        }; AppController.getInstance().addToRequestQueue(sr);
+        AppController.getInstance().setVolleyDuration(sr);
+    }
 
 }

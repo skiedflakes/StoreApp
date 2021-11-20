@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">STORE</string>
-    <string name="title_home">Home</string>
+    <string name="title_home">WABA mart</string>
     <string name="title_dashboard">My Cart</string>
     <string name="title_notifications">History</string>
-    <string name="URL">http://192.168.0.35/kstore/api/</string>
+
+    <string name="URL">http://projects.skiedflakes.site/Waba_mart/api/</string>
+
+<!--    <string name="URL">http://192.168.0.35/waba_mart/api/</string>-->
 </resources>

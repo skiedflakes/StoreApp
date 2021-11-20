@@ -26,15 +26,7 @@
             android:layout_weight="1"
             />
 
-        <Button
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_price"
-            android:text="x 1"
-            android:textColor="@color/black"
-            android:background="#FFFFFF"
-            android:layout_weight="1"
-            />
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -42,7 +34,7 @@
             android:text="x 1"
             android:textColor="@color/black"
             android:background="#FFFFFF"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
             />
         <Button
             android:layout_width="0dp"
@@ -51,7 +43,7 @@
             android:text="Cancel"
             android:textColor="#C82121"
             android:background="#FFFFFF"
-            android:layout_weight="1"
+            android:layout_weight="0.5"
 
             />
     </LinearLayout>

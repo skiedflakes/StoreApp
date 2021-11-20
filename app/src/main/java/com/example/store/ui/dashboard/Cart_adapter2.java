@@ -62,7 +62,7 @@ public class Cart_adapter2 extends RecyclerView.Adapter<Cart_adapter2.UsersViewH
         final String price = dataList.get(position).getPrice();
         final String total = dataList.get(position).getTotal();
         holder.btn_users.setText(product_name+" x "+String.valueOf(qty));
-        holder.btn_price.setText(price);
+
         holder.btn_total.setText(total);
 
     }
@@ -80,7 +80,7 @@ public class Cart_adapter2 extends RecyclerView.Adapter<Cart_adapter2.UsersViewH
 
 
             btn_total = itemView.findViewById(R.id.btn_total);
-            btn_price= itemView.findViewById(R.id.btn_price);
+
         }
     }
 
