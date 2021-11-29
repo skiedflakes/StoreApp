@@ -8,27 +8,50 @@
     card_view:cardElevation="5dp"
     card_view:cardUseCompatPadding="true"
     android:background="#FFFFFF"
-  >
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btn_users"
+            android:textAlignment="center"
+            android:text="N/A"
+            android:textColor="@color/black"
+            android:background="#FFFFFF"
+            android:layout_margin="10dp"
+            android:textSize="25dp"
+         />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="350dp"
+            android:layout_height="300dp"
+            card_view:srcCompat="@android:drawable/ic_menu_gallery" />
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_users"
-        android:text=""
-        android:textColor="@color/black"
-        android:background="#FFFFFF"
-       android:layout_weight="1.3"/>
-    <Button
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/add_to_cart"
-        android:text="+ Add to cart"
-        android:textColor="#FFFFFF"
-        android:background="#2D7E30" android:width="200dp"
-        android:layout_weight="1.3"/>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:layout_margin="10dp">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/add_to_cart"
+                android:text=" Add to cart"
+                android:textColor="#FFFFFF"
+                android:background="#2D7E30" android:width="200dp"
+                android:layout_weight="0.5"
+                android:padding="10dp"
+                android:drawableTop="@drawable/ic_baseline_shopping_cart_24"
+                android:layout_margin="10dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

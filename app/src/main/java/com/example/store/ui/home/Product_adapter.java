@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +31,14 @@ import com.example.store.Login;
 import com.example.store.MainActivity;
 import com.example.store.R;
 import com.example.store.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -70,6 +77,7 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
 
         final String product_name = dataList.get(position).getProduct_name();
         final String product_id = dataList.get(position).getProduct_id();
+        final String img = dataList.get(position).getImg_path();
 
         holder.btn_users.setText(product_name);
 
@@ -82,6 +90,17 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
 //
             }
         });
+
+
+        if(img.equals("default")){
+
+        }else{
+            Picasso
+                    .get()
+                    .load(context.getString(R.string.img_URL)+img)
+                    .into(holder.imageView);
+        }
+
     }
 
     @Override
@@ -90,15 +109,18 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
     }
 
     class UsersViewHolder extends RecyclerView.ViewHolder {
-        Button btn_users,add_to_cart;
+        Button add_to_cart;
+        ImageView imageView;
+        TextView btn_users;
         UsersViewHolder(View itemView) {
             super(itemView);
             btn_users = itemView.findViewById(R.id.btn_users);
             add_to_cart = itemView.findViewById(R.id.add_to_cart);
+            imageView = itemView.findViewById(R.id.imageView);
         }
     }
 
-    void add_product(final String user,final String product_id,final String product_name,int qty) {
+    void add_product(final String user,final String product_id,final String product_name,String qty) {
 
         String URL = context.getString(R.string.URL)+"add_to_cart.php";
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
@@ -139,7 +161,7 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
                 hashMap.put("product_id", product_id);
                 hashMap.put("user_id", user);
                 hashMap.put("product_name", product_name);
-                hashMap.put("qty", String.valueOf(qty));
+                hashMap.put("qty", qty);
                 return hashMap;
             }
         };
@@ -161,7 +183,7 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
         dialog.setContentView(R.layout.quantity_dialog);
 //
 //        //Initializing the views of the dialog.
-        final TextView qty_text = dialog.findViewById(R.id.qty_text);
+        final EditText qty_text = dialog.findViewById(R.id.qty_text);
         final Button minus_btn = dialog.findViewById(R.id.minus_btn);
         final Button plus_btn = dialog.findViewById(R.id.plus_btn);
         final Button Cancel_btn = dialog.findViewById(R.id.Cancel_btn);
@@ -195,7 +217,8 @@ public class Product_adapter extends RecyclerView.Adapter<Product_adapter.UsersV
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                add_product(user,product_id,product_name,quantity);
+               String fqty= qty_text.getText().toString();
+                add_product(user,product_id,product_name, fqty);
             }
         });
         Cancel_btn.setOnClickListener(new View.OnClickListener() {

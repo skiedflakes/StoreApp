@@ -11,11 +11,13 @@ public class Product_model {
     private String product_name;
     @SerializedName("quantity")
     private int quantity;
-
-    public Product_model(String product_id,String product_name,int quantity){
+    @SerializedName("img_path")
+    private String img_path;
+    public Product_model(String product_id,String product_name,int quantity,String img_path){
         this.product_id = product_id;
         this.product_name = product_name;
         this.quantity = quantity;
+        this.img_path=img_path;
     }
 
     public String getProduct_name() {
@@ -28,5 +30,9 @@ public class Product_model {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public String getImg_path() {
+        return img_path;
     }
 }

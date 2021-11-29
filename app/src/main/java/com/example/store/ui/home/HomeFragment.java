@@ -180,6 +180,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+
                     //((Main)getActivity()).alert_debug(response);
                     file_list = new ArrayList<Product_model>();
                     JSONObject jsonObject = new JSONObject(response);
@@ -189,7 +190,7 @@ public class HomeFragment extends Fragment {
                         JSONObject jsonObject1 = (JSONObject)jsonArray.get(i);
 
                         file_list.add(new Product_model(
-                                jsonObject1.getString("product_id"),jsonObject1.getString("product_name"),1));
+                                jsonObject1.getString("product_id"),jsonObject1.getString("product_name"),1,jsonObject1.getString("img_path")));
                     }
 
                     adapter = new Product_adapter(view.getContext(), file_list);

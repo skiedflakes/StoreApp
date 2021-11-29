@@ -259,7 +259,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    status.setText("READY FOR PICKUP");
+                    status.setText("Rider is on the way.\n Please wait for a few minutes . . .");
                     btn_submit.setVisibility(View.GONE);
                     btn_cancel.setVisibility(View.GONE);
                     //((Main)getActivity()).alert_debug(response);
