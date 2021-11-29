@@ -79,10 +79,10 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@drawable/btn_custom4"
+            android:background="#FF4C4A4A"
             android:elevation="20dp"
             android:text="Sign Up"
-            android:textColor="#ffffff" />
+            android:textColor="#FFFFFF" />
 
     </LinearLayout>
 

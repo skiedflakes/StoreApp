@@ -29,9 +29,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.example.store.AppController;
 import com.example.store.R;
-import com.example.store.SessionManager;
-import com.example.store.databinding.FragmentHomeBinding;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,21 +64,14 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
-
-
-
         recyclerView = view.findViewById(R.id.recyclerview_products);
         spinner_category = view.findViewById(R.id.spinner_salesman);
         category_list = new ArrayList<>();
         category_ids = new ArrayList<>();
-
         categoryadapter = new ArrayAdapter<String>(getContext(),
                 android.R.layout.simple_spinner_item, category_list);
         categoryadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_category.setAdapter(categoryadapter);
-
-
         spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
@@ -91,9 +81,6 @@ public class HomeFragment extends Fragment {
 
             }
         });
-
-
-
         get_categories();
         return view;
     }
