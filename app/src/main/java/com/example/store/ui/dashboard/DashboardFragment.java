@@ -164,7 +164,11 @@ public class DashboardFragment extends Fragment {
                     file_list = new ArrayList<Cart_model>();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    if(jsonArray.length()==0){
+                        btn_submit.setVisibility(View.GONE);
+                    }else{
 
+                    }
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject1 = (JSONObject)jsonArray.get(i);
                         if(i==0){
