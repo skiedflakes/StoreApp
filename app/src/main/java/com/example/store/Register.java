@@ -2,15 +2,18 @@ package com.example.store;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Register extends AppCompatActivity {
     Spinner spinner_category;
@@ -51,7 +55,6 @@ public class Register extends AppCompatActivity {
         spinner_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = parent.getItemAtPosition(position).toString();
-                Toast.makeText(getApplicationContext(), selectedItem, Toast.LENGTH_SHORT).show();
                 sex = selectedItem;
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -68,21 +71,48 @@ public class Register extends AppCompatActivity {
         EditText c_password = findViewById(R.id.c_password);
         EditText contact_no = findViewById(R.id.contact_no);
         Button register_btn = findViewById(R.id.register_btn);
-
+        Button register_btn2 = findViewById(R.id.register_btn2);
+        register_btn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(Register.this, Login.class);
+                startActivity(i);
+                Register.this.finish();
+            }
+        });
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                api_login_function2(
-                        username.getText().toString()
-                        ,email.getText().toString()
-                        ,name.getText().toString()
-                        ,age.getText().toString(),address.getText().toString()
-                        ,password.getText().toString()
-                        ,c_password.getText().toString()
-                        ,contact_no.getText().toString()
-                        ,sex
+                if(username.getText().toString().equals("")
+                        ||email.getText().toString().equals("")
+                        ||name.getText().toString().equals("")
+                        ||age.getText().toString().equals("")
+                        ||address.getText().toString().equals("")
+                        ||password.getText().toString().equals("")
+                        ||c_password.getText().toString().equals("")
+                        ||contact_no.getText().toString().equals("")
+                       ){
+                    Toast.makeText(getBaseContext(), "please fill-up required fields", Toast.LENGTH_SHORT).show();
+                }else{
 
-                );
+                    if(c_password.getText().toString().equals(password.getText().toString())){
+                        api_login_function2(   username.getText().toString()
+                            ,email.getText().toString()
+                            ,name.getText().toString()
+                            ,age.getText().toString(),address.getText().toString()
+                            ,password.getText().toString()
+                            ,c_password.getText().toString()
+                            ,contact_no.getText().toString()
+                            ,sex);
+                    }else{
+
+                        Toast.makeText(getBaseContext(), "password does not match", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
+
             }
         });
     }
@@ -147,6 +177,58 @@ public class Register extends AppCompatActivity {
         }
 
     }
+
+
+    //Function to display the custom dialog.
+    void showCustomDialog(final String username,
+                          final String email,
+                          final String name,
+                          final String age,
+                          final String address,
+                          final String password,
+                          final String c_password,
+                          final String contact_no,final String sex) {
+        Random rand = new Random();
+        String id = String.format("%04d", rand.nextInt(10000));
+        final Dialog dialog = new Dialog(Register.this);
+        //We have added a title in the custom layout. So let's disable the default title.
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //The user will be able to cancel the dialog bu clicking anywhere outside the dialog.
+        dialog.setCancelable(true);
+        //Mention the name of the layout of your custom dialog.
+        dialog.setContentView(R.layout.verification_dialog);
+        final TextView tv_title = dialog.findViewById(R.id.v_code);
+
+        final Button Cancel_btn = dialog.findViewById(R.id.Cancel_btn);
+        final Button Okay_btn = dialog.findViewById(R.id.Okay_btn);
+
+        tv_title.setText("Enter verification code: "+id);
+        Okay_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                api_login_function2(
+                        username
+                        ,email
+                        ,name
+                        ,age,address
+                        ,password
+                        ,c_password
+                        ,contact_no
+                        ,sex
+
+                );
+            }
+        });
+        Cancel_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 
 
 }

@@ -44,6 +44,7 @@ public class Login extends AppCompatActivity {
         final EditText password = findViewById(R.id.password);
         Button login = findViewById(R.id.login_btn);
         Button sign_up = findViewById(R.id.sign_up);
+        Button forgot_pass = findViewById(R.id.forgot_pass);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +59,16 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent i = new Intent(Login.this, Register.class);
+                startActivity(i);
+                Login.this.finish();
+            }
+        });
+
+        forgot_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent i = new Intent(Login.this, Forgot_password.class);
                 startActivity(i);
                 Login.this.finish();
             }
@@ -79,7 +90,6 @@ public class Login extends AppCompatActivity {
                     status = jo.getString("status");
                     user_id = jo.getString("user_id");
 
-                    Log.e("hahaha",status);
                     if(status.equals("1")){
                         Toast.makeText(Login.this, "Login Success", Toast.LENGTH_SHORT).show();
 
