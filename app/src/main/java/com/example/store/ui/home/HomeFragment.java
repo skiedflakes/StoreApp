@@ -140,8 +140,9 @@ public class HomeFragment extends Fragment {
 
 //                            get_products(category_id);
                             if(category_id.equals("-1")){
-
+                                recyclerView.setVisibility(View.GONE);
                             }else{
+                                recyclerView.setVisibility(View.VISIBLE);
                                 get_products(category_id);
                             }
                         }
