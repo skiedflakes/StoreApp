@@ -212,7 +212,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    status.setText("ORDER SUBMITTED");
+
                     btn_submit.setVisibility(View.GONE);
                     btn_cancel.setVisibility(View.VISIBLE);
                     //((Main)getActivity()).alert_debug(response);
@@ -223,7 +223,12 @@ public class DashboardFragment extends Fragment {
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject1 = (JSONObject)jsonArray.get(i);
                         if(i==0){
-                            total_cart.setText(  "TOTAL : "+ jsonObject1.getString("total_price"));
+                            int total_price = jsonObject1.getInt("total_price");
+                            int delivery_fee = jsonObject1.getInt("delivery_fee");
+                            int final_price = total_price+delivery_fee;
+                            status.setText("ORDER SUBMITTED \n Estimated delivery time is "+    jsonObject1.getString("minutes")+ " minutes");
+                            total_cart.setText( "total order : "+String.valueOf(total_price)+"\ndelivery fee : "+String.valueOf(delivery_fee)+"\n \nTOTAL : "+ String.valueOf(final_price));
+
                         }
                         file_list.add(new Cart_model(
                                 jsonObject1.getString("cart_id"), jsonObject1.getString("product_id"),jsonObject1.getString("product_name"),jsonObject1.getInt("quantity"),jsonObject1.getString("total"),jsonObject1.getString("price")));
@@ -263,7 +268,10 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
-                    status.setText("Rider is on the way.\n Please wait for a few minutes . . .");
+
+                    int min = 5;
+                    int max = 20;
+                    int random_int = (int)Math.floor(Math.random()*(max-min+1)+min);
                     btn_submit.setVisibility(View.GONE);
                     btn_cancel.setVisibility(View.GONE);
                     //((Main)getActivity()).alert_debug(response);
@@ -274,7 +282,12 @@ public class DashboardFragment extends Fragment {
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonObject1 = (JSONObject)jsonArray.get(i);
                         if(i==0){
-                            total_cart.setText( "TOTAL : "+ jsonObject1.getString("total_price"));
+                            int total_price = jsonObject1.getInt("total_price");
+                            int delivery_fee = jsonObject1.getInt("delivery_fee");
+                            int final_price = total_price+delivery_fee;
+                            status.setText("Rider is on the way.\n Please wait for "+    jsonObject1.getString("minutes")+" minutes . . .");
+
+                            total_cart.setText( "total order : "+String.valueOf(total_price)+"\ndelivery fee : "+String.valueOf(delivery_fee)+"\n \nTOTAL : "+ String.valueOf(final_price));
                         }
                         file_list.add(new Cart_model(
                                 jsonObject1.getString("cart_id"), jsonObject1.getString("product_id"),jsonObject1.getString("product_name"),jsonObject1.getInt("quantity"),jsonObject1.getString("total"),jsonObject1.getString("price")));

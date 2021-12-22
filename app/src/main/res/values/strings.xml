@@ -5,10 +5,10 @@
     <string name="title_notifications">History</string>
 
     <!--    ONLINE ENV-->
-            <string name="URL">http://projects.skiedflakes.site/Waba_mart/api/</string>
-            <string name="img_URL">http://projects.skiedflakes.site/Waba_mart/uploads/</string>
+<!--            <string name="URL">http://projects.skiedflakes.site/Waba_mart/api/</string>-->
+<!--            <string name="img_URL">http://projects.skiedflakes.site/Waba_mart/uploads/</string>-->
 
     <!--   LOCAL ENV-->
-<!--    <string name="URL">http://192.168.0.35/waba_mart/api/</string>-->
-<!--    <string name="img_URL">http://192.168.0.35/waba_mart/uploads/</string>-->
+    <string name="URL">http://192.168.150.251/waba_mart/api/</string>
+    <string name="img_URL">http://192.168.150.251/waba_mart/uploads/</string>
 </resources>
